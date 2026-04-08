@@ -1,5 +1,5 @@
 {
-  "name": "backend-nest-fastify-boilerplate",
+  "name": "nest-fastify-boilerplate",
   "version": "0.1.0",
   "private": false,
   "description": "Production-oriented NestJS + Fastify + TypeScript backend boilerplate",

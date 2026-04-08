@@ -26,7 +26,7 @@ export class AppController {
   health() {
     return {
       status: "ok",
-      service: "backend-nest-fastify-boilerplate"
+      service: "nest-fastify-boilerplate"
     };
   }
 

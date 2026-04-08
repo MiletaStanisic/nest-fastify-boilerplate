@@ -1,4 +1,4 @@
-# backend-nest-fastify-boilerplate
+# nest-fastify-boilerplate
 
 NestJS + Fastify + TypeScript starter for backend demo apps with strict lint/test/build and agent governance.
 
