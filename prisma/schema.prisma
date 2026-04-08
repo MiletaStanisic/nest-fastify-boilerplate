@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PipelineStage {
+  discovery
+  security_review
+  integration
+  training
+  go_live
+}
+
+model Client {
+  id          String        @id @default(cuid())
+  name        String
+  industry    String?
+  contactName String?
+  contactEmail String?
+  stage       PipelineStage @default(discovery)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  milestones  Milestone[]
+  notes       Note[]
+  activities  ActivityEvent[]
+
+  @@index([stage])
+}
+
+model Milestone {
+  id        String   @id @default(cuid())
+  clientId  String
+  title     String
+  dueDate   DateTime?
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  clientId  String
+  author    String
+  content   String
+  createdAt DateTime @default(now())
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+}
+
+model ActivityEvent {
+  id        String   @id @default(cuid())
+  clientId  String?
+  type      String
+  message   String
+  createdAt DateTime @default(now())
+  client    Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
+
+  @@index([clientId])
+  @@index([createdAt])
+}

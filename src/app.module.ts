@@ -7,6 +7,7 @@ import { PipelineModule } from "./onboarding-pipeline/pipeline.module.js";
 import { MilestonesModule } from "./milestones/milestones.module.js";
 import { NotesModule } from "./notes/notes.module.js";
 import { DashboardModule } from "./dashboard/dashboard.module.js";
+import { PrismaModule } from "./db/prisma.module.js";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { DashboardModule } from "./dashboard/dashboard.module.js";
     MilestonesModule,
     NotesModule,
     DashboardModule,
+    PrismaModule
   ],
   controllers: [AppController],
   providers: [],

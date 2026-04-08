@@ -20,6 +20,10 @@ npm run dev          # listens on PORT (default 4100)
 | `npm run format:check` | Prettier formatting check |
 | `npm run test` | Vitest integration tests (SWC transformer) |
 | `npm run build` | Emit `dist/` via `tsc` |
+| `npm run prisma:generate` | Generate Prisma client |
+| `npm run prisma:migrate:dev` | Run local Prisma migration |
+| `npm run prisma:migrate:deploy` | Apply Prisma migrations |
+| `npm run prisma:studio` | Open Prisma Studio |
 | `npm run skills:sync` | Sync optional vendor skills from lockfile |
 | `npm run skills:verify` | Verify required local backend skills (and optional vendor skills) |
 | `npm run docker:up` | Start API + Postgres + Redis with Docker Compose |
@@ -109,6 +113,7 @@ All endpoints return deterministic JSON envelopes:
 | `PORT` | `4100` | HTTP listen port |
 | `DATABASE_URL` | `postgresql://app:app@localhost:5435/app?schema=public` | Local database URL |
 | `REDIS_URL` | `redis://localhost:6381` | Local Redis URL |
+| `PRISMA_CONNECT_ON_BOOT` | `false` | Set `true` to connect Prisma during app bootstrap |
 
 ## Docker local dev
 
@@ -122,6 +127,16 @@ Default containerized stack:
 - API: `http://localhost:4100`
 - Postgres: `localhost:5435`
 - Redis: `localhost:6381`
+
+## Persistence baseline
+
+This repo now includes Prisma baseline files:
+
+- `prisma/schema.prisma`
+- `src/db/prisma.service.ts`
+- `src/db/prisma.module.ts`
+
+Current API still runs on in-memory services by default; Prisma layer is prepared for incremental migration.
 
 ## Integration notes
 
