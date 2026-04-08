@@ -20,8 +20,12 @@ npm run dev          # listens on PORT (default 4100)
 | `npm run format:check` | Prettier formatting check |
 | `npm run test` | Vitest integration tests (SWC transformer) |
 | `npm run build` | Emit `dist/` via `tsc` |
-| `npm run skills:sync` | Pin Vercel agent skills from lockfile |
-| `npm run skills:verify` | Verify locked skills + local governance skill |
+| `npm run skills:sync` | Sync optional vendor skills from lockfile |
+| `npm run skills:verify` | Verify required local backend skills (and optional vendor skills) |
+| `npm run docker:up` | Start API + Postgres + Redis with Docker Compose |
+| `npm run docker:down` | Stop Docker Compose services |
+| `npm run docker:logs` | Tail Docker app logs |
+| `npm run docker:validate` | Validate compose syntax |
 
 ## Module map
 
@@ -103,6 +107,21 @@ All endpoints return deterministic JSON envelopes:
 |----------|---------|-------------|
 | `NODE_ENV` | `development` | `development` \| `test` \| `production` |
 | `PORT` | `4100` | HTTP listen port |
+| `DATABASE_URL` | `postgresql://app:app@localhost:5435/app?schema=public` | Local database URL |
+| `REDIS_URL` | `redis://localhost:6381` | Local Redis URL |
+
+## Docker local dev
+
+```bash
+cp .env.example .env
+npm run docker:up
+```
+
+Default containerized stack:
+
+- API: `http://localhost:4100`
+- Postgres: `localhost:5435`
+- Redis: `localhost:6381`
 
 ## Integration notes
 
