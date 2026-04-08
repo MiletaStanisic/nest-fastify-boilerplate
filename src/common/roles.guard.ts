@@ -1,5 +1,4 @@
 import { type CanActivate, type ExecutionContext, ForbiddenException, Injectable } from "@nestjs/common";
-import { Reflector } from "@nestjs/core";
 import { ROLES_KEY } from "./roles.decorator.js";
 import { Role } from "./role.enum.js";
 
@@ -9,13 +8,10 @@ type HttpRequest = {
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private readonly reflector: Reflector) {}
-
   canActivate(context: ExecutionContext): boolean {
-    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const requiredRoles =
+      (Reflect.getMetadata(ROLES_KEY, context.getHandler()) as Role[] | undefined) ??
+      (Reflect.getMetadata(ROLES_KEY, context.getClass()) as Role[] | undefined);
 
     if (!requiredRoles || requiredRoles.length === 0) {
       return true;
